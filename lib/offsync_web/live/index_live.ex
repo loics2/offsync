@@ -1,15 +1,19 @@
 defmodule OffsyncWeb.Live.IndexLive do
   use OffsyncWeb, :live_view
 
+  require Logger
+
   @impl true
   def mount(_params, _, socket) do
+    setup_status_indicator()
+
     socket =
       socket
       |> assign(:page_title, "index.html")
-
     {:ok, socket}
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
       <div>
@@ -32,4 +36,5 @@ defmodule OffsyncWeb.Live.IndexLive do
       </div>
     """ 
   end
+  
 end

@@ -3,6 +3,8 @@ defmodule OffsyncWeb.Live.ReglementLive do
 
   @impl true
   def mount(_params, _, socket) do
+    setup_status_indicator()
+    
     socket =
       socket
       |> assign(:page_title, "reglement.html")

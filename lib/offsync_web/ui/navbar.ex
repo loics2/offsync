@@ -2,17 +2,29 @@ defmodule OffsyncWeb.UI.Navbar do
   import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
 
+  alias Offsync.StatusManager
+
+  require Logger
+
   def on_mount(:default, _params, _session, socket) do
     {:cont,
      socket
-     |> attach_hook(:active_page, :handle_params, &set_active_page/3)}
+     |> attach_hook(:active_page, :handle_params, &set_active_page/3)
+     |> attach_hook(:is_space_open, :handle_params, &set_space_open/3)}
   end
 
   def navbar(assigns) do
     ~H"""
       <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-          <a class="navbar-brand" href="/">offsync.html</a>
+          <a class="navbar-brand" href="/">
+            <%= if @is_open do %>
+              <div class="dot dot-open" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Le hackerspace est ouvert"/>
+            <% else %>
+              <div class="dot dot-closed" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Le hackerspace est fermé"/>
+            <% end %>
+            offsync.html
+          </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -111,5 +123,9 @@ defmodule OffsyncWeb.UI.Navbar do
       end
 
     {:cont, assign(socket, current_page: active_page)}
+  end
+  
+  defp set_space_open(_params, _url, socket) do
+    {:cont, assign(socket, is_open: StatusManager.open?())}
   end
 end

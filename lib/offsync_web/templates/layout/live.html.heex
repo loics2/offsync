@@ -1,4 +1,4 @@
-<.navbar>
+<.navbar is_open={@is_open}>
   <.navbar_link to={Routes.live_path(@socket, OffsyncWeb.Live.IndexLive)} active?={@current_page == :index}>
     accueil.html
   </.navbar_link>

@@ -15,7 +15,9 @@ defmodule Offsync.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Offsync.PubSub},
       # Start the Endpoint (http/https)
-      OffsyncWeb.Endpoint
+      OffsyncWeb.Endpoint,
+
+      Offsync.StatusManager
       # Start a worker by calling: Offsync.Worker.start_link(arg)
       # {Offsync.Worker, arg}
     ]

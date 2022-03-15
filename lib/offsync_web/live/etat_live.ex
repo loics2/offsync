@@ -3,6 +3,8 @@ defmodule OffsyncWeb.Live.EtatLive do
 
   @impl true
   def mount(_params, _, socket) do
+    setup_status_indicator()
+    
     socket =
       socket
       |> assign(:page_title, "etat_du_projet.html")
