@@ -4,6 +4,8 @@ defmodule Offsync.Accounts.User do
 
   schema "users" do
     field :email, :string
+    field :first_name, :string
+    field :last_name, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
@@ -30,8 +32,8 @@ defmodule Offsync.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :type])
-    |> validate_required([:type])
+    |> cast(attrs, [:email, :first_name, :last_name, :password, :type])
+    |> validate_required([:type, :first_name, :last_name])
     |> validate_email()
     |> validate_password(opts)
   end

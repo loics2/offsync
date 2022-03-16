@@ -10,6 +10,18 @@ et les <%= link "statuts", to: Routes.static_path(@conn, "/pdf/statuts.pdf") %> 
 
 <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
   <div class="mb-3">
+    <%= label f, :first_name, class: "form-label"%>
+    <%= text_input f, :first_name, required: true, class: "form-control #{if @changeset.action, do: "is-invalid"}" %>
+    <%= error_tag f, :first_name%>
+  </div>
+  
+  <div class="mb-3">
+    <%= label f, :last_name, class: "form-label"%>
+    <%= text_input f, :last_name, required: true, class: "form-control #{if @changeset.action, do: "is-invalid"}" %>
+    <%= error_tag f, :last_name%>
+  </div>
+  
+  <div class="mb-3">
     <%= label f, :email, class: "form-label"%>
     <%= email_input f, :email, required: true, class: "form-control #{if @changeset.action, do: "is-invalid"}" %>
     <%= error_tag f, :email %>
