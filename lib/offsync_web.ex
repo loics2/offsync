@@ -106,6 +106,7 @@ defmodule OffsyncWeb do
 
       import OffsyncWeb.ErrorHelpers
       import OffsyncWeb.Gettext
+      import OffsyncWeb.LiveHelpers
       alias OffsyncWeb.Router.Helpers, as: Routes
     end
   end

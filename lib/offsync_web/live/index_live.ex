@@ -4,13 +4,25 @@ defmodule OffsyncWeb.Live.IndexLive do
   require Logger
 
   @impl true
-  def mount(_params, _, socket) do
+  def mount(_params, session, socket) do
     setup_status_indicator()
 
     socket =
       socket
+      |> assign_auth(session, :optional_auth)
       |> assign(:page_title, "index.html")
     {:ok, socket}
+  end
+
+  @impl true
+  def handle_event("toggle_open", _value, socket) do
+    if Offsync.StatusManager.open?() do
+      Offsync.StatusManager.close()
+    else
+      Offsync.StatusManager.open()
+    end
+
+    {:noreply, socket}
   end
 
   @impl true
@@ -33,6 +45,16 @@ defmodule OffsyncWeb.Live.IndexLive do
             Qui que tu sois, quoi que tu fasses, tu es le·la
             bienvenu·e!
         </p>
+
+        <%= if @current_user do %>
+          <%= unless @current_user.type == :standard do %>
+            <%= if @is_open do %>
+              <button phx-click="toggle_open">J'y suis plus.</button>
+            <% else %>
+              <button phx-click="toggle_open">J'y suis!</button>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
     """ 
   end

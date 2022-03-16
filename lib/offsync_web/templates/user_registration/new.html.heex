@@ -1,0 +1,38 @@
+<h1>S'inscrire</h1>
+<p>Pour devenir membre de l'association, il te suffit de remplir le formulaire. Tu as le choix entre deux types de membres :
+  <ul>
+    <li>membre actif, qui te donne accès au local n'importe quand, à 45 CHF/mois</li>
+    <li>membre ordinaire, qui te donne accès au local quand un membre active y est, à 20 CHF/mois</li>
+  </ul>
+</p>
+<p>Pour plus d'informations, consulter le <%= link "règlement",to: Routes.live_path(@conn, OffsyncWeb.Live.ReglementLive) %>
+et les <%= link "statuts", to: Routes.static_path(@conn, "/pdf/statuts.pdf") %> de l'association.</p>
+
+<.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
+  <div class="mb-3">
+    <%= label f, :email, class: "form-label"%>
+    <%= email_input f, :email, required: true, class: "form-control #{if @changeset.action, do: "is-invalid"}" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="mb-3">
+    <%= label f, :password, class: "form-label" %>
+    <%= password_input f, :password, required: true , class: "form-control #{if @changeset.action, do: "is-invalid"}"%>
+    <%= error_tag f, :password %>
+  </div>
+
+  <div class="mb-3">
+    <%= label f, :type, class: "form-label" %>
+    <%= select f, :type, ["Membre actif": :active, "Membre ordinaire": :standard], class: "form-control #{if @changeset.action, do: "is-invalid"}"%>
+    <%= error_tag f, :type%>
+  </div>
+
+  <div>
+    <%= submit "Devenir membre!" %>
+  </div>
+</.form>
+
+<p class="mt-5">
+  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> |
+  <%= link "Mot de passe oublié?", to: Routes.user_reset_password_path(@conn, :new) %>
+</p>

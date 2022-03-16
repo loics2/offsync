@@ -13,10 +13,21 @@
     <li>
       <%= link "statuts.pdf", to: Routes.static_path(@socket, "/pdf/statuts.pdf"), class: "dropdown-item" %>
     </li>
-    <li>
-      <hr class="dropdown-divider" />
-    </li>
   </.navbar_dropdown>
+  
+  <%= if @current_user do %>
+    <.navbar_dropdown title={@current_user.email} >
+      <li><%= link "Settings", to: Routes.user_settings_path(@socket, :edit), class: "dropdown-item" %></li>
+      <li><%= link "Log out", to: Routes.user_session_path(@socket, :delete), method: :delete, class: "dropdown-item" %></li>
+   </.navbar_dropdown>
+  <% else %>
+    <li class="nav-item">
+      <%= link "devenir_membre.php", to: Routes.user_registration_path(@socket, :new), class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link "log_in.php", to: Routes.user_session_path(@socket, :new), class: "nav-link" %>
+    </li>
+  <% end %>
 </.navbar>
 
 <main class="container mt-5">

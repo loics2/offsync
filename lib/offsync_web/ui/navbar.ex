@@ -14,14 +14,23 @@ defmodule OffsyncWeb.UI.Navbar do
   end
 
   def navbar(assigns) do
+    assigns =
+      assigns
+      |> assign_new(:is_open, fn -> nil end)
+
     ~H"""
       <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
           <a class="navbar-brand" href="/">
-            <%= if @is_open do %>
-              <div class="dot dot-open" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Le hackerspace est ouvert"/>
-            <% else %>
-              <div class="dot dot-closed" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Le hackerspace est fermé"/>
+            <%= case @is_open do %>
+              <% true -> %>
+                <div class="dot dot-open" title="Le hackerspace est ouvert"/>
+                
+              <% false -> %>
+                <div class="dot dot-closed" title="Le hackerspace est fermé"/>
+                
+              <% nil -> %>
+                <div class="dot" title="Statut du hackerspace non disponible"/>
             <% end %>
             offsync.html
           </a>
@@ -51,7 +60,7 @@ defmodule OffsyncWeb.UI.Navbar do
   end
 
   def dropdown_link(%{active?: true} = assigns) do
-     assigns =
+    assigns =
       assigns
       |> assign_new(:to, fn -> "#" end)
 

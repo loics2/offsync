@@ -1,3 +1,19 @@
+<.navbar>
+  <%= if @current_user do %>
+    <.navbar_dropdown title={@current_user.email} >
+      <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "dropdown-item" %></li>
+      <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "dropdown-item" %></li>
+   </.navbar_dropdown>
+  <% else %>
+    <li class="nav-item">
+      <%= link "devenir_membre.php", to: Routes.user_registration_path(@conn, :new), class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link "log_in.php", to: Routes.user_session_path(@conn, :new), class: "nav-link" %>
+    </li>
+  <% end %>
+</.navbar>
+
 <main class="container">
   <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
   <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>

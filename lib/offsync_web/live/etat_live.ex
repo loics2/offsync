@@ -2,11 +2,12 @@ defmodule OffsyncWeb.Live.EtatLive do
   use OffsyncWeb, :live_view
 
   @impl true
-  def mount(_params, _, socket) do
+  def mount(_params, session, socket) do
     setup_status_indicator()
     
     socket =
       socket
+      |> assign_auth(session, :optional_auth)
       |> assign(:page_title, "etat_du_projet.html")
 
     {:ok, socket}
