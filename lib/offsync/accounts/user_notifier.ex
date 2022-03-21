@@ -21,17 +21,23 @@ defmodule Offsync.Accounts.UserNotifier do
   Deliver instructions to confirm account.
   """
   def deliver_confirmation_instructions(user, url) do
-    deliver(user.email, "Confirmation instructions", """
+    deliver(user.email, "Confirme ton inscription", """
 
     ==============================
 
-    Hi #{user.email},
+    Salut #{user.first_name},
 
-    You can confirm your account by visiting the URL below:
+    Merci pour ton inscription à offsync! Il ne te reste plus
+    qu'à confirmer ton compte en visitant l'adresse suivante :
 
     #{url}
 
-    If you didn't create an account with us, please ignore this.
+    Tu peux aussi verser le montant de ta cotisation sur notre
+    compte (en précisant ton nom dans le champ de communication) :
+
+    CH57 0076 8300 1642 2750 6
+    
+    A la prochaine!
 
     ==============================
     """)
@@ -41,17 +47,18 @@ defmodule Offsync.Accounts.UserNotifier do
   Deliver instructions to reset a user password.
   """
   def deliver_reset_password_instructions(user, url) do
-    deliver(user.email, "Reset password instructions", """
+    deliver(user.email, "Mot de passe oublié", """
 
     ==============================
 
-    Hi #{user.email},
+    Salut #{user.first_name},
 
-    You can reset your password by visiting the URL below:
+    Tu peux remettre à zéro le mot de passe de ton compte offsync
+    à l'adresse suivante :
 
     #{url}
 
-    If you didn't request this change, please ignore this.
+    A la prochaine!
 
     ==============================
     """)
@@ -61,17 +68,18 @@ defmodule Offsync.Accounts.UserNotifier do
   Deliver instructions to update a user email.
   """
   def deliver_update_email_instructions(user, url) do
-    deliver(user.email, "Update email instructions", """
+    deliver(user.email, "Changement d'adresse email", """
 
     ==============================
 
-    Hi #{user.email},
+    Salut #{user.first_name},
 
-    You can change your email by visiting the URL below:
+    Tu peux changer l'adresse email de ton compte offsync
+    à l'adresse suivante :
 
     #{url}
 
-    If you didn't request this change, please ignore this.
+    A la prochaine!
 
     ==============================
     """)
