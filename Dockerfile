@@ -18,7 +18,8 @@ ARG RUNNER_IMAGE="debian:bullseye-20210902-slim"
 FROM ${BUILDER_IMAGE} as builder
 
 # install build dependencies
-RUN apt-get update -y && apt-get install -y build-essential git \
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+    &&  apt-get update -y && apt-get install -y nodejs npm build-essential git \
     && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # prepare build dir
@@ -40,6 +41,7 @@ RUN mkdir config
 # to ensure any relevant config change will trigger the dependencies
 # to be re-compiled.
 COPY config/config.exs config/${MIX_ENV}.exs config/
+
 RUN mix deps.compile
 
 COPY priv priv
@@ -51,7 +53,8 @@ COPY priv priv
 COPY assets assets
 
 # compile assets
-RUN mix assets.deploy
+RUN npm --prefix ./assets install --progress=false --no-audit --loglevel=error \
+ && mix assets.deploy
 
 # Compile the release
 COPY lib lib
