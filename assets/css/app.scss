@@ -7,6 +7,11 @@ $font-family-base: var(--bs-font-monospace);
 $form-feedback-margin-top: 0px;
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+#map {
+  position: relative;
+  height: 50em;
+  width: 100%;
+}
 
 .dot {
   height: 1em;

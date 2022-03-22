@@ -2,8 +2,8 @@
   <.navbar_link to={Routes.live_path(@socket, OffsyncWeb.Live.IndexLive)} active?={@current_page == :index}>
     accueil.html
   </.navbar_link>
-  <.navbar_link to={Routes.live_path(@socket, OffsyncWeb.Live.EtatLive)} active?={@current_page == :etat}>
-    etat_du_projet.html
+  <.navbar_link to={Routes.live_path(@socket, OffsyncWeb.Live.LocationLive)} active?={@current_page == :location}>
+    carte.js
   </.navbar_link>
 
   <.navbar_dropdown title="association.dir" >

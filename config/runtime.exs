@@ -12,6 +12,14 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
   config :offsync, OffsyncWeb.Endpoint, server: true
 end
 
+mapbox_token =
+  System.get_env("MAPBOX_TOKEN") ||
+    raise """
+    environment variable MAPBOX_TOKEN is missing.
+    """
+
+config :offsync, mapbox_token: mapbox_token
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

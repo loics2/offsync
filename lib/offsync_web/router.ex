@@ -24,6 +24,7 @@ defmodule OffsyncWeb.Router do
       live "/", Live.IndexLive
       live "/etat", Live.EtatLive
       live "/reglement", Live.ReglementLive
+      live "/location", Live.LocationLive
     end
   end
 

@@ -127,6 +127,9 @@ defmodule OffsyncWeb.UI.Navbar do
         OffsyncWeb.Live.ReglementLive ->
           :reglement
 
+        OffsyncWeb.Live.LocationLive ->
+          :carte
+
         _ ->
           nil
       end
