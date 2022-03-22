@@ -8,6 +8,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content={Routes.static_url(@conn, "/images/offsync_white.png")} />
     <meta property="og:url" content={"#{Routes.url(@conn)}#{@conn.request_path}"} />
+    <meta property="og:description" content="offsync est un hackerspace fribourgeois, un lieu d'expérimentation et de rencontre ouvert à toutes et à tous centré sur l'informatique, l'électronique et la technologie en général." />
 
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "page.txt", suffix: " | offsync" %>
