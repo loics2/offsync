@@ -5,7 +5,6 @@ defmodule Offsync.Accounts do
 
   import Ecto.Query, warn: false
   alias Offsync.Repo
-
   alias Offsync.Accounts.{User, UserToken, UserNotifier}
 
   ## Database getters
@@ -59,6 +58,16 @@ defmodule Offsync.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  @doc """
+  Gets a list of users
+  """
+  def list_users() do
+    # TODO: add pagination
+    User
+    |> order_by(:first_name)
+    |> Repo.all()
+  end
 
   ## User registration
 

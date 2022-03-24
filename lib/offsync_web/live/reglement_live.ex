@@ -7,7 +7,7 @@ defmodule OffsyncWeb.Live.ReglementLive do
     
     socket =
       socket
-      |> assign_auth(session, :optional_auth)
+      |> assign_auth(session, optional: true)
       |> assign(:page_title, "reglement.html")
 
     {:ok, socket}

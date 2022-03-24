@@ -17,6 +17,11 @@
   
   <%= if @current_user do %>
     <.navbar_dropdown title={@current_user.email} >
+      <%= if @current_user.type == :admin do %>
+        <.dropdown_link to={Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users)} active?={@current_page == :admin}>
+          Admin
+        </.dropdown_link>
+      <% end %>
       <li><%= link "Settings", to: Routes.user_settings_path(@socket, :edit), class: "dropdown-item" %></li>
       <li><%= link "Log out", to: Routes.user_session_path(@socket, :delete), method: :delete, class: "dropdown-item" %></li>
    </.navbar_dropdown>

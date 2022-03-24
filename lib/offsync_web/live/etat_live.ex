@@ -7,7 +7,7 @@ defmodule OffsyncWeb.Live.EtatLive do
     
     socket =
       socket
-      |> assign_auth(session, :optional_auth)
+      |> assign_auth(session, optional: true)
       |> assign(:page_title, "etat_du_projet.html")
 
     {:ok, socket}

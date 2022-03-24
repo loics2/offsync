@@ -130,6 +130,9 @@ defmodule OffsyncWeb.UI.Navbar do
         OffsyncWeb.Live.LocationLive ->
           :carte
 
+        OffsyncWeb.Live.AdminLive.Users ->
+          :admin
+
         _ ->
           nil
       end

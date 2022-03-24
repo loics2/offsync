@@ -25,6 +25,7 @@ defmodule OffsyncWeb.Router do
       live "/etat", Live.EtatLive
       live "/reglement", Live.ReglementLive
       live "/location", Live.LocationLive
+      live "/admin", Live.AdminLive.Users
     end
   end
 
