@@ -4,21 +4,21 @@ defmodule OffsyncWeb.Live.AdminLive.Users do
   alias Offsync.Accounts
 
   @impl true
-  def mount(_params, session, socket) do
+  def mount(params, session, socket) do
     setup_status_indicator()
-    
-    users = Accounts.list_users()
+    page = Map.get(params, "page", 1)
+    user_page = Accounts.list_users(page)
 
     socket =
       socket
       |> assign_auth(session, type: :admin)
       |> assign(:page_title, "users")
-      |> assign(:page, 0)
-      |> assign(:users, users)
+      |> assign(:page_number, user_page.page_number)
+      |> assign(:total_pages, user_page.total_pages)
+      |> assign(:users, user_page.entries)
 
     {:ok, socket}
   end
-
 
   @impl true
   def render(assigns) do
@@ -53,6 +53,24 @@ defmodule OffsyncWeb.Live.AdminLive.Users do
         <% end %>
       </tbody>
     </table>
+
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class={"page-item #{if @page_number == 1, do: "disabled"}"}>
+          <%= live_redirect "Previous", to: Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users, page: @page_number - 1), class: "page-link", tabindex: -1 %>
+        </li>
+
+        <%= for page <- 1..@total_pages do %>
+          <li class={"page-item #{if @page_number == page, do: "active"}"}>
+            <%= live_redirect page, to: Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users, page: page), class: "page-link"%>
+          </li>
+        <% end %>
+
+        <li class={"page-item #{if @page_number == @total_pages, do: "disabled"}"}>
+          <%= live_redirect "Next", to: Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users, page: @page_number + 1), class: "page-link" %>
+        </li>
+      </ul>
+    </nav>
     """
   end
 end

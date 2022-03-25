@@ -1,10 +1,30 @@
 /* This file is for your main application CSS */
 /*@import "./phoenix.css";*/
+@import "../node_modules/bootstrap/scss/functions";
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
 
 $body-bg: #1d1e1c;
 $body-color: #fff;
 $font-family-base: var(--bs-font-monospace);
 $form-feedback-margin-top: 0px;
+
+$pagination-bg: $body-bg;
+$pagination-border-color: rgba($white, 0.05);
+
+$pagination-hover-bg: rgba($link-hover-color, 0.15);
+$pagination-hover-border-color: rgba($white, 0.15);
+
+$pagination-focus-bg: $pagination-hover-bg; 
+
+$pagination-disabled-bg: rgba($white, 0.05);
+$pagination-disabled-border-color: $pagination-border-color;
+
+
+// 4. Include any optional Bootstrap components as you like
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 #map {

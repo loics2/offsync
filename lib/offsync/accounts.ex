@@ -62,11 +62,10 @@ defmodule Offsync.Accounts do
   @doc """
   Gets a list of users
   """
-  def list_users() do
-    # TODO: add pagination
+  def list_users(page) do
     User
     |> order_by(:first_name)
-    |> Repo.all()
+    |> Repo.paginate(page: page, page_size: 10)
   end
 
   ## User registration
