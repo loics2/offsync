@@ -61,12 +61,12 @@ $pagination-disabled-border-color: $pagination-border-color;
   animation: 1s blink step-end infinite;
 }
 
-@keyframes "blink" {
+@keyframes blink {
   from, to {
     color: transparent;
   }
   50% {
-    color: black;
+    color: $body-color;
   }
 }
 
@@ -75,34 +75,34 @@ $pagination-disabled-border-color: $pagination-border-color;
     color: transparent;
   }
   50% {
-    color: black;
+    color: $body-color;
   }
 }
 
-@-webkit-keyframes "blink" {
+@-webkit-keyframes blink {
   from, to {
     color: transparent;
   }
   50% {
-    color: black;
+    color: $body-color;
   }
 }
 
-@-ms-keyframes "blink" {
+@-ms-keyframes blink {
   from, to {
     color: transparent;
   }
   50% {
-    color: black;
+    color: $body-color;
   }
 }
 
-@-o-keyframes "blink" {
+@-o-keyframes blink {
   from, to {
     color: transparent;
   }
   50% {
-    color: black;
+    color: $body-color;
   }
 }
 
