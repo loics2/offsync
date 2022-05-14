@@ -22,9 +22,6 @@ defmodule Offsync.Accounts.UserNotifier do
   """
   def deliver_confirmation_instructions(user, url) do
     deliver(user.email, "Confirme ton inscription", """
-
-    ==============================
-
     Salut #{user.first_name},
 
     Merci pour ton inscription à offsync! Il ne te reste plus
@@ -36,10 +33,8 @@ defmodule Offsync.Accounts.UserNotifier do
     compte (en précisant ton nom dans le champ de communication) :
 
     CH57 0076 8300 1642 2750 6
-    
-    A la prochaine!
 
-    ==============================
+    A la prochaine!
     """)
   end
 
@@ -48,9 +43,6 @@ defmodule Offsync.Accounts.UserNotifier do
   """
   def deliver_reset_password_instructions(user, url) do
     deliver(user.email, "Mot de passe oublié", """
-
-    ==============================
-
     Salut #{user.first_name},
 
     Tu peux remettre à zéro le mot de passe de ton compte offsync
@@ -59,8 +51,6 @@ defmodule Offsync.Accounts.UserNotifier do
     #{url}
 
     A la prochaine!
-
-    ==============================
     """)
   end
 
@@ -69,9 +59,6 @@ defmodule Offsync.Accounts.UserNotifier do
   """
   def deliver_update_email_instructions(user, url) do
     deliver(user.email, "Changement d'adresse email", """
-
-    ==============================
-
     Salut #{user.first_name},
 
     Tu peux changer l'adresse email de ton compte offsync
@@ -80,8 +67,6 @@ defmodule Offsync.Accounts.UserNotifier do
     #{url}
 
     A la prochaine!
-
-    ==============================
     """)
   end
 end
