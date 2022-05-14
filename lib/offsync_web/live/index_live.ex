@@ -28,35 +28,57 @@ defmodule OffsyncWeb.Live.IndexLive do
   @impl true
   def render(assigns) do
     ~H"""
-      <div>
-        <h1>Un hackerspace, c'est quoi ?<span class="blinking-cursor">|</span></h1>
-        <p class="lead">
-            C'est un lieu d'expérimentation et de rencontre où des gens ayant un intérêt commun se retrouvent pour
-            collaborer. Les membres y travaillent sur leurs projets en toute liberté, en partageant leurs
-            connaissances avec la communauté. Dans ce cas, le hacking est l'art de modifier ou bricoler un objet ou
-            un programme.
-        </p>
-        <p> Dans le cas d'offsync, c'est un atelier centré sur
-            l'informatique et l'électronique. Nous fournirons
-            un atelier équipé du nécessaire pour y créer les
-            projets les plus fous, artistiques ou non, inutiles ou indispensables.</p>
+    <div>
+      <h1>Bienvenue chez offsync !<span class="blinking-cursor">|</span></h1>
+      <p class="lead">
+        offsync est un hackerspace : un endroit dédié à la création et
+        à l'expérimentation technologique, un endroit où partager ses
+        connaissances et en apprendre de nouvelles. Et boire des binches
+        de temps en temps.
+      </p>
+      <p>
+        L'idée d'offsync est de mettre en relation des personnes
+        s'intéressant de près ou de loin à la technologie et de
+        réaliser ensemble les projets les plus fous, artistiques ou non,
+        inutiles ou indispensables. Aucune connaissance spécifique n'est
+        requise, on a tous·te quelque chose à apporter. Qui que tu sois,
+        quoi que tu fasses, tu es le·la bienvenu·e!
+      </p>
+      <p>
+        Pour avoir accès au local et au matériel d'offsync, il te suffit de
+        <%= live_redirect("devenir membre", to: Routes.user_registration_path(@socket, :new)) %>
+        et de payer une cotisation mensuelle. Nous organisons toutefois
+        des évènements ouverts au public, suis-nous sur les réseaux
+        pour rester au courant. Garde aussi un oeil sur la pastille à côté
+        du logo ci-dessus : si elle est verte, quelqu'un se trouve au local
+        et tu peux y venir!
+      </p>
 
-        <p>
-            Qui que tu sois, quoi que tu fasses, tu es le·la
-            bienvenu·e!
-        </p>
+      <h2>TODOs</h2>
+      <p>
+        L'association et le local sont des projets récents, et il nous
+        manque encore quelques trucs:
 
-        <%= if @current_user do %>
-          <%= unless @current_user.type == :standard do %>
-            <%= if @is_open do %>
-              <button phx-click="toggle_open">J'y suis plus.</button>
-            <% else %>
-              <button phx-click="toggle_open">J'y suis!</button>
-            <% end %>
+        <ul>
+          <li>Connexion Internet</li>
+          <li>Bureaux et chaises</li>
+          <li>Matériel électronique (fer à souder, etc.)</li>
+          <li>Outils divers (tourne-vis, pinces, etc.)</li>
+        </ul>
+
+        Si tu as des bons plans ou du matériel à nous donner, n'hésite pas à nous contacter!
+      </p>
+
+      <%= if @current_user do %>
+        <%= unless @current_user.type == :standard do %>
+          <%= if @is_open do %>
+            <button phx-click="toggle_open">J'y suis plus.</button>
+          <% else %>
+            <button phx-click="toggle_open">J'y suis!</button>
           <% end %>
         <% end %>
-      </div>
-    """ 
+      <% end %>
+    </div>
+    """
   end
-  
 end
