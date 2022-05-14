@@ -33,22 +33,19 @@ defmodule OffsyncWeb.Live.AdminLive.Users do
       <tbody>
         <%= for user <- @users do %>
           <tr>
-            <td><%= user.email %></td> 
-            <td><%= user.first_name %></td> 
-            <td><%= user.last_name %></td> 
+            <td><%= user.email %></td>
+            <td><%= user.first_name %></td>
+            <td><%= user.last_name %></td>
             <td>
               <%= case user.type do %>
-              <% :active -> %>
-                Membre actif
-
-              <% :standard -> %>
-                Membre ordinaire
-
-              <% :admin -> %>
-                Admin
-
+                <% :active -> %>
+                  Membre actif
+                <% :standard -> %>
+                  Membre ordinaire
+                <% :admin -> %>
+                  Admin
               <% end %>
-            </td> 
+            </td>
           </tr>
         <% end %>
       </tbody>
@@ -57,17 +54,27 @@ defmodule OffsyncWeb.Live.AdminLive.Users do
     <nav aria-label="...">
       <ul class="pagination">
         <li class={"page-item #{if @page_number == 1, do: "disabled"}"}>
-          <%= live_redirect "Previous", to: Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users, page: @page_number - 1), class: "page-link", tabindex: -1 %>
+          <%= live_redirect("Previous",
+            to: Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users, page: @page_number - 1),
+            class: "page-link",
+            tabindex: -1
+          ) %>
         </li>
 
         <%= for page <- 1..@total_pages do %>
           <li class={"page-item #{if @page_number == page, do: "active"}"}>
-            <%= live_redirect page, to: Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users, page: page), class: "page-link"%>
+            <%= live_redirect(page,
+              to: Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users, page: page),
+              class: "page-link"
+            ) %>
           </li>
         <% end %>
 
         <li class={"page-item #{if @page_number == @total_pages, do: "disabled"}"}>
-          <%= live_redirect "Next", to: Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users, page: @page_number + 1), class: "page-link" %>
+          <%= live_redirect("Next",
+            to: Routes.live_path(@socket, OffsyncWeb.Live.AdminLive.Users, page: @page_number + 1),
+            class: "page-link"
+          ) %>
         </li>
       </ul>
     </nav>

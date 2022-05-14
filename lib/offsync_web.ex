@@ -48,14 +48,14 @@ defmodule OffsyncWeb do
         layout: {OffsyncWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
- 
-      defp setup_status_indicator() do    
+
+      defp setup_status_indicator() do
         Phoenix.PubSub.subscribe(Offsync.PubSub, "status")
       end
 
       @impl true
       def handle_info({:status, _}, socket) do
-        {:noreply, socket |> assign(:is_open, Offsync.StatusManager.open?()) }
+        {:noreply, socket |> assign(:is_open, Offsync.StatusManager.open?())}
       end
     end
   end

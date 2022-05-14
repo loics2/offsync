@@ -8,11 +8,10 @@ defmodule OffsyncWeb.LiveHelpers do
   def assign_auth(socket, session, opts \\ []) do
     optional? = opts[:optional] || false
     type = opts[:type]
-    
+
     assign_new(socket, :current_user, fn -> find_current_user(session) end)
     |> enforce_login(optional?)
     |> check_type(type)
-
   end
 
   defp find_current_user(session) do
@@ -38,8 +37,10 @@ defmodule OffsyncWeb.LiveHelpers do
   end
 
   defp check_type(socket, nil), do: socket
+
   defp check_type(socket, type) do
     user = socket.assigns.current_user
+
     if user do
       if user.type == type do
         socket
@@ -53,4 +54,3 @@ defmodule OffsyncWeb.LiveHelpers do
     end
   end
 end
-

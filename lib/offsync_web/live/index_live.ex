@@ -11,6 +11,7 @@ defmodule OffsyncWeb.Live.IndexLive do
       socket
       |> assign_auth(session, optional: true)
       |> assign(:page_title, "index.html")
+
     {:ok, socket}
   end
 
