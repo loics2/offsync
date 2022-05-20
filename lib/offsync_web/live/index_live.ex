@@ -30,7 +30,7 @@ defmodule OffsyncWeb.Live.IndexLive do
   def render(assigns) do
     ~H"""
     <div>
-      <h1>Bienvenue chez offsync !<span class="blinking-cursor">|</span></h1>
+      <h1>Bienvenue chez offsync!<span class="blinking-cursor">|</span></h1>
       <p class="lead">
         offsync est un hackerspace : un endroit dédié à la création et
         à l'expérimentation technologique, un endroit où partager ses
@@ -58,7 +58,7 @@ defmodule OffsyncWeb.Live.IndexLive do
       <h2>TODOs</h2>
       <p>
         L'association et le local sont des projets récents, et il nous
-        manque encore quelques trucs:
+        manque encore quelques trucs :
 
         <ul>
           <li>Connexion Internet</li>
