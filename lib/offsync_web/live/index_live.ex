@@ -17,10 +17,8 @@ defmodule OffsyncWeb.Live.IndexLive do
 
   @impl true
   def handle_event("toggle_open", _value, socket) do
-    if Offsync.StatusManager.open?() do
-      Offsync.StatusManager.close()
-    else
-      Offsync.StatusManager.open()
+    if socket.assigns.current_user do
+      Offsync.StatusManager.toggle(socket.assigns.current_user)
     end
 
     {:noreply, socket}
@@ -59,14 +57,12 @@ defmodule OffsyncWeb.Live.IndexLive do
       <p>
         L'association et le local sont des projets récents, et il nous
         manque encore quelques trucs :
-
         <ul>
           <li>Connexion Internet</li>
           <li>Bureaux et chaises</li>
           <li>Matériel électronique (fer à souder, etc.)</li>
           <li>Outils divers (tourne-vis, pinces, etc.)</li>
         </ul>
-
         Si tu as des bons plans ou du matériel à nous donner, n'hésite pas à nous contacter!
       </p>
 

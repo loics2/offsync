@@ -17,6 +17,7 @@ defmodule OffsyncWeb.UI.Navbar do
     assigns =
       assigns
       |> assign_new(:is_open, fn -> nil end)
+      |> assign_new(:present_user, fn -> nil end)
 
     ~H"""
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -24,7 +25,10 @@ defmodule OffsyncWeb.UI.Navbar do
         <a class="navbar-brand" href="/">
           <%= case @is_open do %>
             <% true -> %>
-              <div class="dot dot-open" title="Le hackerspace est ouvert" />
+              <div
+                class="dot dot-open"
+                title={"Le hackerspace est ouvert, #{@present_user.first_name} y est actuellement"}
+              />
             <% false -> %>
               <div class="dot dot-closed" title="Le hackerspace est fermé" />
             <% nil -> %>
@@ -159,6 +163,13 @@ defmodule OffsyncWeb.UI.Navbar do
   end
 
   defp set_space_open(_params, _url, socket) do
-    {:cont, assign(socket, is_open: StatusManager.open?())}
+    {is_open, present_user} = StatusManager.open?()
+
+    socket =
+      socket
+      |> assign(:is_open, is_open)
+      |> assign(:present_user, present_user)
+
+    {:cont, socket}
   end
 end

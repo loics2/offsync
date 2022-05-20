@@ -54,8 +54,13 @@ defmodule OffsyncWeb do
       end
 
       @impl true
-      def handle_info({:status, _}, socket) do
-        {:noreply, socket |> assign(:is_open, Offsync.StatusManager.open?())}
+      def handle_info({:status_update, %{is_present: is_present, user: user}}, socket) do
+        socket =
+          socket
+          |> assign(:is_open, is_present)
+          |> assign(:present_user, user)
+
+        {:noreply, socket}
       end
     end
   end

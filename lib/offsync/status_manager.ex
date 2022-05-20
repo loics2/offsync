@@ -1,55 +1,26 @@
 defmodule Offsync.StatusManager do
-  use GenServer
+  alias Offsync.AccessLog
+  alias Offsync.AccessLog.Entry
+  alias Offsync.Accounts.User
 
-  defstruct status: :closed
+  def toggle(%User{id: user_id} = user) do
+    {:ok, %Entry{is_present: is_present}} = AccessLog.create_entry(%{user_id: user_id})
 
-  def start_link(_) do
-    GenServer.start_link(__MODULE__, %__MODULE__{}, name: __MODULE__)
-  end
-
-  def open() do
-    GenServer.call(__MODULE__, :open)
+    Phoenix.PubSub.broadcast(
+      Offsync.PubSub,
+      "status",
+      {:status_update, %{is_present: is_present, user: user}}
+    )
   end
 
   def open?() do
-    GenServer.call(__MODULE__, :is_open)
-  end
+    AccessLog.get_latest_entry()
+    |> case do
+      %Entry{is_present: is_present, user: user} ->
+        {is_present, user}
 
-  def close() do
-    GenServer.call(__MODULE__, :close)
-  end
-
-  @impl true
-  def init(params) do
-    {:ok, params}
-  end
-
-  @impl true
-  def handle_call(:open, _from, state) do
-    new_state = %__MODULE__{state | status: :open}
-
-    Phoenix.PubSub.broadcast(Offsync.PubSub, "status", {:status, new_state})
-
-    {:reply, new_state, new_state}
-  end
-
-  @impl true
-  def handle_call(:close, _from, state) do
-    new_state = %__MODULE__{state | status: :closed}
-
-    Phoenix.PubSub.broadcast(Offsync.PubSub, "status", {:status, new_state})
-
-    {:reply, new_state, new_state}
-  end
-
-  @impl true
-  def handle_call(:is_open, _from, %__MODULE__{status: status} = state) do
-    case status do
-      :open ->
-        {:reply, true, state}
-
-      :closed ->
-        {:reply, false, state}
+      nil ->
+        {false, nil}
     end
   end
 end
